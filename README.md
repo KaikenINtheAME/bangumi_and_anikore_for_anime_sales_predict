@@ -1,7 +1,7 @@
 # bangumi_and_anikore_for_anime_sales_predict
-**Try to predict the BD/DVD sales of anime using data from bangumi (bangumi.tv) and anikore (anikore.jp)**
+**Try to predict the BD/DVD sales of anime using data from bangumi (bangumi.tv) and anikore (anikore.jp) between 2018 and 2019**
 
-*尝试使用 bangumi（ bangumi.tv ） 和 anikore （ anikore.jp ）的数据预测动画 BD/DVD 销量*
+*尝试使用 2018-2019 年 bangumi（ bangumi.tv ） 和 anikore （ anikore.jp ）的数据预测动画 BD/DVD 销量*
 
 ## Data source:
 
