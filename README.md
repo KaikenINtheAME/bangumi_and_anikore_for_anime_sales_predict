@@ -5,7 +5,7 @@
 
 ## Data source:
 
-bangumi data comes from https://github.com/czy0729/Bangumi-Subject.
+bangumi json data comes from https://github.com/czy0729/Bangumi-Subject.
 
 *bangumi 的数据来自 czy0729 大佬的 json*
 
@@ -19,13 +19,13 @@ sales data is scraped from http://rankstker.net/
 
 ## What did I do
 
-scraping, data-cleaning, merging, and some machine learning procedures.
+scraping, data-cleaning, merging and some machine learning procedures.
 
 *爬数据，清洗数据，合并，然后一些 ml 的活计*
 
 ## So I get what?
 
-A Ridge regression model with about 0.6 R2 score, and a wordcloud (in Chinese)
+A Ridge regression model with about 0.6 R2 score and a wordcloud (in Chinese)
 
 *一个 R2 分数 0.6 左右的岭回归模型，以及一个中文云图*
 
