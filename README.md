@@ -27,7 +27,7 @@ scraping, data-cleaning, merging and some machine learning procedures.
 
 A Ridge regression model with about 0.6 R2 score and a wordcloud (in Chinese)
 
-*一个 R2 分数 0.6 左右的岭回归模型，以及一个中文云图*
+*一个分层交叉验证 R2 分数 0.6 左右的岭回归模型，以及一个中文云图*
 
 ## What did I use?
 
