@@ -7,8 +7,8 @@ from pandas import DataFrame, Series
 
 # this function reading json file and than return a DataFrame
 def json_cleaning(path):
-    with open(path, "r") as fd:
-        json_content = json.load(fd)
+    with open(path, "r", encoding="utf-8") as fd:
+        json_content = json.load(fd, encoding="utf-8")
         tags = DataFrame(json_content['tags'])
         tags.set_index('name', inplace=True)
         # 'sr' means Series
@@ -49,37 +49,61 @@ def json_cleaning(path):
 
 
 paths = pd.read_csv('bangumi_ani_tv_path.csv', encoding='utf-8', header=None)
+print('paths loading complete. ')
+print('press any ket to continue...')
+_ = input('>')
 
-# look, I merging they like a baka.
-# but this way can avoid MemoryError.
 
+
+
+print('transforming json to DataFrame...')
 bangumi_dfs = []
-for i in range(len(paths)):
-    path = paths.loc[i][0]
+for path in paths[1]:
     df = json_cleaning(path)
+    print('Get DataFrame from {}'.format(path))
     if df is not None:
         bangumi_dfs.append(df)
 
+# get all tags
 all_tags = set()
 for df in bangumi_dfs:
     all_tags.update(df.index)
 
-orig = Series(['id', 'name', '1', '2', '3',
-               '4', '5', '6', '7', '8', '9', '10', 'total',
-               'wish', 'doing', 'on_hold', 'dropped'])
+print("all_tags's length: ", len(all_tags))
 
-tags = pd.concat([all_tags, orig])
+orig = ['id', 'name', '1', '2', '3',
+               '4', '5', '6', '7', '8', '9', '10', 'total',
+               'wish', 'doing', 'on_hold', 'dropped']
+
+all_tags.update(orig)
+print('all_tags length: ',len(all_tags))
+items = list(all_tags)
+print('items length:', len(items))
+items = Series(items)
+items = items.rename(columns={0: 'tags'})
+print("items's length:", len(items))
 
 # a dummy DataFrame with all features in it.
-dummy = DataFrame(range(len(tags)), index=tags[0])
+dummy = DataFrame(range(len(items.array)), index=items.array)
 dummy.index.rename('item', inplace=True)
+print('dummy length: ', len(dummy))
 
-df0 = pd.merge(dummy, bangumi_dfs[0], on='item')
-for i in range(1, len(bangumi_dfs)):
-    df = bangumi_dfs[i].rename({'info': 'info{}'.format(bangumi_dfs[i].loc['id'])})
-    df0 = pd.merge(df0, df, how='outer')
+# a new list with processed DataFrame.
+# if directly use 'concat' you will get a ValueError
+# sorry but I don't know why
+# so I try a clumsy way.
 
-# del the dummy column
-del df0[0]
+bgm_dfs =[]
+for df in bangumi_dfs[::1]:
+    df = dummy.merge(df, how='left', on='item')
+    bgm_dfs.append(df)
+
+# use 'merge' or 'join' will cause a MemoryError
+df0 = pd.concat([df for df in bgm_dfs if df.shape == (3170, 2)], join='outer', axis=1)
+# remove all dummy columns
+df0 = df0.T.drop_duplicates(keep=False).T
 
 df0.to_csv('bangumi.csv', encoding='utf-8')
+print('csv file is saved.')
+print('press any key to exit.')
+_ = input('>')
