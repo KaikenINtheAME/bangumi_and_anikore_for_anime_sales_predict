@@ -29,7 +29,9 @@ for i in range(len(text)):
     td = text[i].get_text()
     if len(re_tr.findall(td)) < 2:
         continue
-    avg = re_tr.findall(td)[1]
+    # at this web site, the item's format of animes between 2018-2019
+    # is AvgSales-TotalSales-Title. I choose AvgSales as target.
+    avg = re_tr.findall(td)[0]
     avg.replace('pt', '')
     avg.replace(',', '')
     avg.replace('*', '')
