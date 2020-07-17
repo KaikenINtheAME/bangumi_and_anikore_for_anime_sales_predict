@@ -25,9 +25,9 @@ scraping, data-cleaning, merging and some machine learning procedures.
 
 ## So I get what?
 
-A Ridge regression model with about 0.6 R2 score and a wordcloud (in Chinese)
+A  RandomForest classifier just a little better than the dummy classifier.
 
-*一个分层交叉验证 R2 分数 0.6 左右的岭回归模型，以及一个中文词云*
+*一个只比随机瞎猜好一点的随机森林分类器*
 
 ## What did I use?
 
